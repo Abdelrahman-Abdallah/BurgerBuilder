@@ -5,19 +5,14 @@ const burger = (props) => {
   //we have ingredient HERE as prop
   let transformedIngredients = Object.keys(props.ingredients).map(
     (ingredientKey) => {
-      return [...Array(props.ingredients[ingredientKey])]
-        .map((_, i) => {
-          return (
-            <BurgerIngredient
-              key={`${ingredientKey}+${i}`}
-              type={ingredientKey}
-            ></BurgerIngredient>
-          );
-        })
-        .reduce((arr, ele) => {
-          console.log(ele);
-          return arr.concat(ele);
-        }, []);
+      return [...Array(props.ingredients[ingredientKey])].map((_, i) => {
+        return (
+          <BurgerIngredient
+            key={`${ingredientKey}+${i}`}
+            type={ingredientKey}
+          ></BurgerIngredient>
+        );
+      });
     }
   );
   if (transformedIngredients.length === 0) {

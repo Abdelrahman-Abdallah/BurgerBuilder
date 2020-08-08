@@ -16,6 +16,8 @@ const BuildControls = (props) => {
             label={control.label}
             type={control.type}
             key={control.label}
+            add={() => props.addIngredient(control.type)}
+            remove={() => props.removeIngredient(control.type)}
           />
         );
       })}

@@ -29,7 +29,7 @@
   box-shadow: inset -2px -3px #c9c9c9;
 }
 
-.Seeds1:after {
+.Seeds1::after {
   content: "";
   width: 100%;
   height: 100%;
@@ -42,7 +42,7 @@
   box-shadow: inset -1px 2px #c9c9c9;
 }
 
-.Seeds1:before {
+.Seeds1::before {
   content: "";
   width: 100%;
   height: 100%;

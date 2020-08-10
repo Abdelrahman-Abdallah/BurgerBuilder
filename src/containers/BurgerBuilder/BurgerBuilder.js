@@ -4,6 +4,7 @@ import Burger from "../../components/Burger/Burger";
 import BuildControls from "../../components/Burger/BuildControls/BuildControls";
 import Modal from "../../components/UI/Modal/Modal";
 import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
+import BackDrop from "../../components/UI/Backdrop/Backdrop";
 const INGREDIENTS_PRICES = {
   salad: 2,
   bacon: 1.5,
@@ -69,7 +70,8 @@ class BurgerBuilder extends React.Component {
   };
   orderingHandler = () => {
     console.log(`purchsing`);
-    this.setState({ ordering: true });
+    const ordering = this.state.ordering;
+    this.setState({ ordering: !ordering });
   };
   render() {
     const disabledInfo = { ...this.state.ingredients };
@@ -78,6 +80,10 @@ class BurgerBuilder extends React.Component {
     }
     return (
       <Aux>
+        <BackDrop
+          show={this.state.ordering}
+          hide={this.orderingHandler}
+        ></BackDrop>
         <Modal show={this.state.ordering}>
           <OrderSummary ingredients={this.state.ingredients} />
         </Modal>

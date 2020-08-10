@@ -1,0 +1,38 @@
+.Toolbar {
+  height: 56px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #703b09;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  box-sizing: border-box;
+  z-index: 90;
+}
+
+.Toolbar nav {
+  height: 100%;
+}
+
+.Title {
+  margin-left: 170px;
+  color: white;
+  font-family: "Berkshire Swash", cursive;
+  font-size: 24px;
+}
+@media (max-width: 499px) {
+  .DesktopOnly {
+    display: none;
+  }
+  .Title {
+    display: none;
+  }
+}
+@media (min-width: 500px) and (max-width: 850px) {
+  .Title {
+    margin-left: 80px;
+  }
+}

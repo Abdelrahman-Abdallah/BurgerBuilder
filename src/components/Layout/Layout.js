@@ -5,16 +5,16 @@ import Toolbar from "../Navigation/Toolbar/Toolbar";
 import SideDrawer from "../Navigation/SideDrawer/SideDrawer";
 class Layout extends React.Component {
   state = {
-    showSideDrawer: true,
+    showSideDrawer: false,
   };
   sideDrawerCloseHandler = () => {
-    this.setState({ showSideDrawer: false });
+    this.setState({ showSideDrawer: !this.state.showSideDrawer });
   };
   render() {
     return (
       <Aux>
         <div>
-          <Toolbar></Toolbar>
+          <Toolbar sidedrawer={this.sideDrawerCloseHandler}></Toolbar>
           <SideDrawer
             open={this.state.showSideDrawer}
             closed={this.sideDrawerCloseHandler}

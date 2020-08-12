@@ -4,7 +4,7 @@ import Logo from "../../Logo/logo";
 import NavigationItems from "../NavigationItems/NavigationItems";
 const toolbar = (props) => (
   <header className={classes.Toolbar}>
-    <div>MENU</div>
+    <div onClick={props.sidedrawer}>MENU</div>
 
     <div className={classes.Logo}>
       <Logo></Logo>

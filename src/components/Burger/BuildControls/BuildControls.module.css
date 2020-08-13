@@ -49,6 +49,6 @@
 }
 @media (max-width: 810px) {
   .BuildControls {
-    display: block;
+    /* display: block; */
   }
 }

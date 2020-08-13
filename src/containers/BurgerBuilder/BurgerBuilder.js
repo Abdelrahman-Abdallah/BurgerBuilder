@@ -27,7 +27,7 @@ class BurgerBuilder extends React.Component {
     const ingredients = { ...this.state.ingredients };
     const sum = Object.keys(ingredients)
       .map((key) => {
-        console.log(key, " ", ingredients[key]);
+        // console.log(key, " ", ingredients[key]);
         return ingredients[key];
       })
       .reduce((sum, el) => sum + el, 0);

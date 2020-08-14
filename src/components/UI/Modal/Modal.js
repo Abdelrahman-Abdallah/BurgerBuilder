@@ -2,7 +2,10 @@ import React from "react";
 import classes from "./Modal.module.css";
 class Modal extends React.Component {
   shouldComponentUpdate(nextProps, nextState) {
-    return nextProps.show !== this.props.show ? true : false;
+    return (
+      nextProps.show !== this.props.show ||
+      nextProps.children !== this.props.children
+    );
   }
   componentDidUpdate() {
     console.log(["MoDAL shoud component Update"]);

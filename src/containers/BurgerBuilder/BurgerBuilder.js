@@ -6,6 +6,7 @@ import Modal from "../../components/UI/Modal/Modal";
 import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
 import BackDrop from "../../components/UI/Backdrop/Backdrop";
 import axios from "../../axios-orders";
+import Spinner from "../../components/UI/Spinner/Spinner";
 const INGREDIENTS_PRICES = {
   salad: 2,
   bacon: 1.5,
@@ -23,6 +24,7 @@ class BurgerBuilder extends React.Component {
     price: 4,
     purchable: false,
     ordering: false,
+    loading: false,
   };
   updatePurchaseState = () => {
     const ingredients = { ...this.state.ingredients };
@@ -75,6 +77,7 @@ class BurgerBuilder extends React.Component {
     this.setState({ ordering: !ordering });
   };
   orderContinueHandler = () => {
+    this.setState({ loading: true });
     const order = {
       ingredients: this.state.ingredients,
       price: this.state.price,
@@ -88,14 +91,28 @@ class BurgerBuilder extends React.Component {
     axios
       .post("/orders.json", order)
       .then((res) => {
+        this.setState({ loading: false, ordering: false });
         console.log(res);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        this.setState({ loading: false, ordering: false });
+      });
   };
   render() {
     const disabledInfo = { ...this.state.ingredients };
     for (let key in disabledInfo) {
       disabledInfo[key] = disabledInfo[key] <= 0;
+    }
+    let ordersummary = (
+      <OrderSummary
+        ingredients={this.state.ingredients}
+        hide={this.orderingHandler}
+        continue={this.orderContinueHandler}
+      />
+    );
+    if (this.state.loading) {
+      ordersummary = <Spinner />;
     }
     return (
       <Aux>
@@ -103,13 +120,7 @@ class BurgerBuilder extends React.Component {
           show={this.state.ordering}
           hide={this.orderingHandler}
         ></BackDrop>
-        <Modal show={this.state.ordering}>
-          <OrderSummary
-            ingredients={this.state.ingredients}
-            hide={this.orderingHandler}
-            continue={this.orderContinueHandler}
-          />
-        </Modal>
+        <Modal show={this.state.ordering}>{ordersummary}</Modal>
         <div>
           <Burger ingredients={this.state.ingredients} />
         </div>

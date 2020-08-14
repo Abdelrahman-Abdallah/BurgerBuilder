@@ -5,6 +5,7 @@ import BuildControls from "../../components/Burger/BuildControls/BuildControls";
 import Modal from "../../components/UI/Modal/Modal";
 import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
 import BackDrop from "../../components/UI/Backdrop/Backdrop";
+import axios from "../../axios-orders";
 const INGREDIENTS_PRICES = {
   salad: 2,
   bacon: 1.5,
@@ -73,10 +74,24 @@ class BurgerBuilder extends React.Component {
     const ordering = this.state.ordering;
     this.setState({ ordering: !ordering });
   };
-  orderContinueHandler() {
-    console.log("continue to checkout");
-    alert("continue to checkout proudct");
-  }
+  orderContinueHandler = () => {
+    const order = {
+      ingredients: this.state.ingredients,
+      price: this.state.price,
+      customer: {
+        name: "Abdelrahman",
+        email: "test@test.com",
+        address: "test Address",
+      },
+      delvieryMethod: "fastest",
+    };
+    axios
+      .post("/orders.json", order)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => console.log(err));
+  };
   render() {
     const disabledInfo = { ...this.state.ingredients };
     for (let key in disabledInfo) {

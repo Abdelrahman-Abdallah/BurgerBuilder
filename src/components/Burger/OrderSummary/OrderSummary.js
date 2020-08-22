@@ -7,18 +7,24 @@ class OrderSummary extends React.Component {
     console.log("[OrderSummary Will Update]");
   }
 
-  ingredeintsSummary = Object.keys(this.props.ingredients).map((key, i) => (
-    <li key={key + i}>
-      <span className="IngredientName">{key}</span> :{" "}
-      {this.props.ingredients[key]}
-    </li>
-  ));
   render() {
+    let ingredeintsSummary = Object.keys(this.props.ingredients).map(
+      (key, i) => {
+        console.log(this.props.ingredients[key]);
+        return (
+          <li key={key + i}>
+            <span className="IngredientName">{key}</span> :{" "}
+            {this.props.ingredients[key]}
+          </li>
+        );
+      }
+    );
+
     return (
       <Aux>
         <h3>your Orders</h3>
         <p>A declicious burget with the following Ingredients</p>
-        <ul>{this.ingredeintsSummary}</ul>
+        <ul>{ingredeintsSummary}</ul>
         <p>Continue to checkout ?</p>
         <Button btnType="Danger" click={this.props.hide}>
           CANCEL

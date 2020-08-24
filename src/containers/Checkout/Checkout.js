@@ -9,10 +9,18 @@ class Checkout extends React.Component {
       bacon: 1,
     },
   };
+  checkOutCancelHandler = () => {
+    this.props.history.goBack();
+  };
+  checkOutContinueHandler = () => {};
   render() {
     return (
       <div>
-        <CheckoutSummary ingredients={this.state.ingredients} />
+        <CheckoutSummary
+          ingredients={this.state.ingredients}
+          checkOutCanceld={this.checkOutCancelHandler}
+          checkOutContinue={this.checkOutContinueHandler}
+        />
       </div>
     );
   }

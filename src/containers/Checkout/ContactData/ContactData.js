@@ -6,11 +6,61 @@ import Input from "../../../components/Input/Input";
 import classes from "./ContactData.module.css";
 class ContactData extends React.Component {
   state = {
-    name: "",
-    email: "",
-    address: {
-      street: "",
-      postalCode: "",
+    orderForm: {
+      name: {
+        elementType: "input",
+        elementConfig: {
+          //put here the attributes
+          type: "text",
+          placeholder: "Please enter your name",
+        },
+        value: "",
+      },
+      email: {
+        elementType: "input",
+        elementConfig: {
+          //put here the attributes
+          type: "text",
+          placeholder: "Please enter your email",
+        },
+        value: "",
+      },
+      street: {
+        elementType: "input",
+        elementConfig: {
+          //put here the attributes
+          type: "text",
+          placeholder: "Your streett",
+        },
+        value: "",
+      },
+      postalCode: {
+        elementType: "input",
+        elementConfig: {
+          //put here the attributes
+          type: "text",
+          placeholder: "Your postal code",
+        },
+        value: "",
+      },
+      country: {
+        elementType: "input",
+        elementConfig: {
+          //put here the attributes
+          type: "text",
+          placeholder: "Your Country",
+        },
+        value: "",
+      },
+      delvieryMethod: {
+        elementType: "select",
+        elementConfig: {
+          options: [
+            { value: "fastest", displayValue: "Fastest" },
+            { value: "cheapest", displayValue: "Cheapest" },
+          ],
+        },
+      },
     },
     loading: false,
   };
@@ -44,22 +94,11 @@ class ContactData extends React.Component {
     let form = (
       <form>
         <Input
-          label="name"
-          inputtype="text"
-          name="name"
-          placeholder="enter your name"
-        />
-        <Input
-          label="email"
-          inputtype="email"
-          name="email"
-          placeholder="enter your email"
-        />
-        <Input
           label="address"
           inputtype="text"
-          name="address"
-          placeholder="enter your address"
+          elementType="..."
+          elementConfig="..."
+          value="..."
         />
         {/* <input type="text" name="name" placeholder="enter your name" />
         <input type="text" name="email" placeholder="enter your email" />

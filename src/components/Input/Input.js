@@ -10,20 +10,45 @@ const Input = (props) => {
           className={classes.InputElement}
           {...props.elementConfig}
           value={props.value}
+          onChange={props.changed}
         />
       );
       break;
     case "textarea":
       inputElement = (
-        <textarea className={classes.InputElement} {...props.elementConfig} />
+        <textarea
+          className={classes.InputElement}
+          {...props.elementConfig}
+          onChange={props.changed}
+        />
+      );
+      break;
+    case "select":
+      inputElement = (
+        <select
+          className={classes.InputElement}
+          value={props.value}
+          onChange={props.changed}
+        >
+          {props.elementConfig.options.map((op) => (
+            <option key={op.value} value={op.value}>
+              {op.displayValue}
+            </option>
+          ))}
+        </select>
       );
       break;
     default:
       inputElement = (
-        <input className={classes.InputElement} {...props.elementConfig} />
+        <input
+          className={classes.InputElement}
+          {...props.elementConfig}
+          onChange={props.changed}
+        />
       );
       break;
   }
+
   return (
     <div className={classes.Input}>
       <label className={classes.Label}>{props.label}</label>

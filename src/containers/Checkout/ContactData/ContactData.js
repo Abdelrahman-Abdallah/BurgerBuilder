@@ -90,16 +90,22 @@ class ContactData extends React.Component {
         this.setState({ loading: false });
       });
   };
+  handleInputChange = (event, identifier) => {
+    const updatedOrderForm = { ...this.state.orderForm };
+    const updateElement = { ...updatedOrderForm[identifier] };
+    updateElement.value = event.target.value;
+    updatedOrderForm[identifier] = updateElement;
+
+    this.setState({ orderForm: updatedOrderForm });
+  };
   render() {
     const formedArray = [];
-    console.log(this.state.orderForm);
     for (let key in this.state.orderForm) {
       formedArray.push({
         id: key,
         config: this.state.orderForm[key],
       });
     }
-    console.log(formedArray);
 
     let form = (
       <form>
@@ -110,6 +116,7 @@ class ContactData extends React.Component {
             elementType={element.config.elementType}
             elementConfig={element.config.elementConfig}
             value={element.config.value}
+            changed={(event) => this.handleInputChange(event, element.id)}
           />
         ))}
         {/* <input type="text" name="name" placeholder="enter your name" />

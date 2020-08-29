@@ -15,6 +15,11 @@ class ContactData extends React.Component {
           placeholder: "Please enter your name",
         },
         value: "",
+        validation: {
+          required: true,
+        },
+        valid: false,
+        touched: false,
       },
       email: {
         elementType: "input",
@@ -24,6 +29,11 @@ class ContactData extends React.Component {
           placeholder: "Please enter your email",
         },
         value: "",
+        validation: {
+          required: true,
+        },
+        valid: false,
+        touched: false,
       },
       street: {
         elementType: "input",
@@ -33,6 +43,11 @@ class ContactData extends React.Component {
           placeholder: "Your streett",
         },
         value: "",
+        validation: {
+          required: true,
+        },
+        valid: false,
+        touched: false,
       },
       postalCode: {
         elementType: "input",
@@ -42,6 +57,13 @@ class ContactData extends React.Component {
           placeholder: "Your postal code",
         },
         value: "",
+        validation: {
+          required: true,
+          minLength: 3,
+          maxLength: 5,
+        },
+        valid: false,
+        touched: false,
       },
       country: {
         elementType: "input",
@@ -51,6 +73,11 @@ class ContactData extends React.Component {
           placeholder: "Your Country",
         },
         value: "",
+        validation: {
+          required: true,
+        },
+        valid: false,
+        touched: false,
       },
       delvieryMethod: {
         elementType: "select",
@@ -60,23 +87,39 @@ class ContactData extends React.Component {
             { value: "cheapest", displayValue: "Cheapest" },
           ],
         },
+        valid: true,
       },
     },
     loading: false,
+    validForm: false,
+  };
+  checkValidity = (value, rules) => {
+    let isValid = true;
+    if (!rules) return;
+    if (rules.required) {
+      isValid = value.trim() !== "" && isValid;
+    }
+    if (rules.minLength) {
+      isValid = value.length >= rules.minLength && isValid;
+    }
+    if (rules.maxLength) {
+      isValid = value.length <= rules.maxLength && isValid;
+    }
+    return isValid;
   };
   orderHandler = (event) => {
     event.preventDefault();
     console.log(this.props);
+    const formUserData = {};
+    for (let key in this.state.orderForm) {
+      formUserData[key] = this.state.orderForm[key].value;
+    }
+    console.log(formUserData);
     this.setState({ loading: true });
     const order = {
       ingredients: this.props.ingredients,
       price: this.props.price,
-      customer: {
-        name: "Abdelrahman",
-        email: "test@test.com",
-        address: "test Address",
-      },
-      delvieryMethod: "fastest",
+      customer: formUserData,
     };
     axios
       .post("/orders.json", order)
@@ -94,9 +137,18 @@ class ContactData extends React.Component {
     const updatedOrderForm = { ...this.state.orderForm };
     const updateElement = { ...updatedOrderForm[identifier] };
     updateElement.value = event.target.value;
+    updateElement.valid = this.checkValidity(
+      updateElement.value,
+      updateElement.validation
+    );
+    updateElement.touched = true;
     updatedOrderForm[identifier] = updateElement;
-
-    this.setState({ orderForm: updatedOrderForm });
+    console.log(updateElement);
+    let formvalid = true;
+    for (let key in updatedOrderForm) {
+      formvalid = updatedOrderForm[key].valid && formvalid;
+    }
+    this.setState({ orderForm: updatedOrderForm, validForm: formvalid });
   };
   render() {
     const formedArray = [];
@@ -108,7 +160,7 @@ class ContactData extends React.Component {
     }
 
     let form = (
-      <form>
+      <form onSubmit={this.orderHandler}>
         {formedArray.map((element) => (
           <Input
             label={element.id}
@@ -116,13 +168,16 @@ class ContactData extends React.Component {
             elementType={element.config.elementType}
             elementConfig={element.config.elementConfig}
             value={element.config.value}
+            invalid={!element.config.valid}
+            shouldValidate={element.config.validation}
+            touched={element.config.touched}
             changed={(event) => this.handleInputChange(event, element.id)}
           />
         ))}
         {/* <input type="text" name="name" placeholder="enter your name" />
         <input type="text" name="email" placeholder="enter your email" />
         <input type="text" name="address" placeholder="enter your address" /> */}
-        <Button btnType="Success" click={this.orderHandler}>
+        <Button disabled={!this.state.validForm} btnType="Success">
           ORDER
         </Button>
       </form>

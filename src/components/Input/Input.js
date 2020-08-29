@@ -32,7 +32,7 @@ const Input = (props) => {
   );
 };
 Input.propTypes = {
-  label: PropTypes.string.isRequired,
-  inputtype: PropTypes.string.isRequired,
+  label: PropTypes.string,
+  inputtype: PropTypes.string,
 };
 export default Input;

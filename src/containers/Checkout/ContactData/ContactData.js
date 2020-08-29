@@ -91,15 +91,27 @@ class ContactData extends React.Component {
       });
   };
   render() {
+    const formedArray = [];
+    console.log(this.state.orderForm);
+    for (let key in this.state.orderForm) {
+      formedArray.push({
+        id: key,
+        config: this.state.orderForm[key],
+      });
+    }
+    console.log(formedArray);
+
     let form = (
       <form>
-        <Input
-          label="address"
-          inputtype="text"
-          elementType="..."
-          elementConfig="..."
-          value="..."
-        />
+        {formedArray.map((element) => (
+          <Input
+            label={element.id}
+            key={element.id}
+            elementType={element.config.elementType}
+            elementConfig={element.config.elementConfig}
+            value={element.config.value}
+          />
+        ))}
         {/* <input type="text" name="name" placeholder="enter your name" />
         <input type="text" name="email" placeholder="enter your email" />
         <input type="text" name="address" placeholder="enter your address" /> */}

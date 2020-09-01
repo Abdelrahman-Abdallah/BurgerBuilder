@@ -7,9 +7,9 @@ import { BrowserRouter } from "react-router-dom";
 // REACT REDUX CONFIGURATION
 import { Provider } from "react-redux";
 import { createStore } from "redux";
-import reducer from "./store/reducer";
+import BurgerBuilderReducer from "./store/reducers/burgerBuilder";
 const store = createStore(
-  reducer,
+  BurgerBuilderReducer,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 

@@ -96,7 +96,7 @@ class ContactData extends React.Component {
   };
   checkValidity = (value, rules) => {
     let isValid = true;
-    if (!rules) return;
+    if (!rules) return true;
     if (rules.required) {
       isValid = value.trim() !== "" && isValid;
     }
@@ -122,17 +122,6 @@ class ContactData extends React.Component {
       price: this.props.price,
       customer: formUserData,
     };
-    axios
-      .post("/orders.json", order)
-      .then((res) => {
-        this.setState({ loading: false });
-        console.log(res);
-        this.props.history.push("/");
-      })
-      .catch((err) => {
-        console.log(err);
-        this.setState({ loading: false });
-      });
   };
   handleInputChange = (event, identifier) => {
     const updatedOrderForm = { ...this.state.orderForm };

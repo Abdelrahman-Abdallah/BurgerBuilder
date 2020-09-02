@@ -12,3 +12,9 @@ export const removeIngredient = (name) => {
     ingredientName: name,
   };
 };
+
+export const initIngredient = () => {
+  return {
+    type: actionTypes.INIT_INGREDIENT,
+  };
+};

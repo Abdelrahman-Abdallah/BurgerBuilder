@@ -22,6 +22,11 @@ export const purchaseLoading = () => {
   };
 };
 
+export const orderPurchasedInit = () => {
+  return {
+    type: actionTypes.ORDER_PURCHASED_INIT,
+  };
+};
 //Async request
 
 export const purchaseBurgerStart = (order) => {

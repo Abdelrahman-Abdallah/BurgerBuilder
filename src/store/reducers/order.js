@@ -4,6 +4,7 @@ const initialState = {
   orders: [],
 
   loading: false,
+  purchased: false,
 };
 
 const OrderReducer = (state = initialState, action) => {
@@ -12,10 +13,16 @@ const OrderReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
+        purchased: true,
         orders: state.orders.concat({
           ...action.orderData,
           id: action.orderId,
         }),
+      };
+    case actionTypes.ORDER_PURCHASED_INIT:
+      return {
+        ...state,
+        purchased: false,
       };
     case actionTypes.PURCHASE_ORDER_FAIL:
       return {

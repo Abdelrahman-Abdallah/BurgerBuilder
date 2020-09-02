@@ -6,13 +6,21 @@ import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter } from "react-router-dom";
 // REACT REDUX CONFIGURATION
 import { Provider } from "react-redux";
-import { createStore, applyMiddleware, compose } from "redux";
-import BurgerBuilderReducer from "./store/reducers/burgerBuilder";
+import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 import thunk from "redux-thunk";
+
+//reducers
+import BurgerBuilderReducer from "./store/reducers/burgerBuilder";
+import OrderReducer from "./store/reducers/order";
+
+const rootReducer = combineReducers({
+  burger: BurgerBuilderReducer,
+  order: OrderReducer,
+});
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
-  BurgerBuilderReducer,
+  rootReducer,
   composeEnhancers(applyMiddleware(thunk))
 );
 

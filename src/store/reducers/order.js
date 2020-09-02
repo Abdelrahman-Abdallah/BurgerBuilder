@@ -6,7 +6,7 @@ const initialState = {
   loading: false,
 };
 
-export const OrderReducer = (state = initialState, action) => {
+const OrderReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.PURCHASE_ORDER_SUCESS:
       return {
@@ -28,3 +28,4 @@ export const OrderReducer = (state = initialState, action) => {
       return state;
   }
 };
+export default OrderReducer;

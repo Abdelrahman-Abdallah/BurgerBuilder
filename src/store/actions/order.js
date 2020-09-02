@@ -15,10 +15,18 @@ export const purchaseOrderFail = (err) => {
   };
 };
 
+// for loading state
+export const purchaseLoading = () => {
+  return {
+    type: actionTypes.PURCHASE_BURGER_Loading,
+  };
+};
+
 //Async request
 
 export const purchaseBurgerStart = (order) => {
   return (dispatch) => {
+    dispatch(purchaseLoading());
     axios
       .post("/orders.json", order)
       .then((res) => {

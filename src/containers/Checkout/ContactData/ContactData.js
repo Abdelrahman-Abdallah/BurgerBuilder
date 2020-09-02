@@ -93,7 +93,7 @@ class ContactData extends React.Component {
         valid: true,
       },
     },
-    loading: false,
+
     validForm: false,
   };
   checkValidity = (value, rules) => {
@@ -174,7 +174,7 @@ class ContactData extends React.Component {
         </Button>
       </form>
     );
-    if (this.state.loading) {
+    if (this.props.loading) {
       form = <Spinner />;
     }
     return (
@@ -190,6 +190,7 @@ const mapStateToProps = (state) => {
   return {
     ings: state.ingredients,
     price: state.totalPrice,
+    loading: state.loading,
   };
 };
 const mapDispatchToProps = (dispatch) => {

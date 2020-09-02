@@ -1,2 +1,2 @@
 export * from "./burgerBuilder";
-export { purchaseBurgerStart, orderPurchasedInit } from "./order";
+export { purchaseBurgerStart, orderPurchasedInit, fetchOrders } from "./order";

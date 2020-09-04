@@ -2,6 +2,8 @@ import React from "react";
 import Input from "../../components/Input/Input";
 import Button from "../../components/UI/Button/Button";
 import classes from "./Auth.module.css";
+import * as actions from "../../store/actions";
+import { connect } from "react-redux";
 class Auth extends React.Component {
   state = {
     controls: {
@@ -36,6 +38,7 @@ class Auth extends React.Component {
       },
     },
     validForm: false,
+    isSignUp: true,
   };
   checkValidity = (value, rules) => {
     let isValid = true;
@@ -72,6 +75,21 @@ class Auth extends React.Component {
     }
     this.setState({ controls: updateControls, validForm: formvalid });
   };
+  submitHandler = (event) => {
+    event.preventDefault();
+    this.props.onAuth(
+      this.state.controls.email.value,
+      this.state.controls.password.value
+    );
+  };
+
+  switchAuthModeHandler = () => {
+    this.setState((prevState) => {
+      return {
+        isSignUp: !prevState.isSignUp,
+      };
+    });
+  };
   render() {
     const formedArray = [];
     for (let key in this.state.controls) {
@@ -93,15 +111,31 @@ class Auth extends React.Component {
         changed={(event) => this.handleInputChange(event, formElement.id)}
       />
     ));
+
     return (
       <div className={classes.Auth}>
-        <form>
+        <form onSubmit={this.submitHandler}>
+          <h3>{this.state.isSignUp ? "SignUp" : "SignIn"}</h3>
           {form}
-          <Button btnType="Success">Submit</Button>
+          <Button disabled={!this.state.validForm} btnType="Success">
+            Submit
+          </Button>
         </form>
+        <Button btnType="Danger" click={this.switchAuthModeHandler}>
+          Switch to {this.state.isSignUp ? "SignUp" : "SignIn"}
+        </Button>
       </div>
     );
   }
 }
 
-export default Auth;
+const mapStateToProps = (state) => {
+  return {};
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onAuth: (email, password) => dispatch(actions.auth(email, password)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Auth);

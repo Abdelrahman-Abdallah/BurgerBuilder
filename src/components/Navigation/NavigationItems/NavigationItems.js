@@ -8,6 +8,7 @@ const navigationItems = (props) => (
         BurgerBuilder
       </NavLink>
       <NavLink to="/orders">Orders</NavLink>
+      <NavLink to="/auth">Login</NavLink>
     </li>
   </ul>
 );

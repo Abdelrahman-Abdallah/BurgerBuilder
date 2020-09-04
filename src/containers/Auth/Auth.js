@@ -79,7 +79,8 @@ class Auth extends React.Component {
     event.preventDefault();
     this.props.onAuth(
       this.state.controls.email.value,
-      this.state.controls.password.value
+      this.state.controls.password.value,
+      this.state.isSignUp
     );
   };
 
@@ -118,11 +119,11 @@ class Auth extends React.Component {
           <h3>{this.state.isSignUp ? "SignUp" : "SignIn"}</h3>
           {form}
           <Button disabled={!this.state.validForm} btnType="Success">
-            Submit
+            {this.state.isSignUp ? "SignUp" : "SignIn"}
           </Button>
         </form>
         <Button btnType="Danger" click={this.switchAuthModeHandler}>
-          Switch to {this.state.isSignUp ? "SignUp" : "SignIn"}
+          Switch to {!this.state.isSignUp ? "SignUp" : "SignIn"}
         </Button>
       </div>
     );
@@ -134,7 +135,8 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    onAuth: (email, password) => dispatch(actions.auth(email, password)),
+    onAuth: (email, password, isSignUp) =>
+      dispatch(actions.auth(email, password, isSignUp)),
   };
 };
 

@@ -4,6 +4,7 @@ import Button from "../../components/UI/Button/Button";
 import classes from "./Auth.module.css";
 import * as actions from "../../store/actions";
 import { connect } from "react-redux";
+import Spinner from "../../components/UI/Spinner/Spinner";
 class Auth extends React.Component {
   state = {
     controls: {
@@ -99,7 +100,7 @@ class Auth extends React.Component {
         config: this.state.controls[key],
       });
     }
-    const form = formedArray.map((formElement) => (
+    let form = formedArray.map((formElement) => (
       <Input
         key={formElement.id}
         Label={formElement.id}
@@ -112,9 +113,14 @@ class Auth extends React.Component {
         changed={(event) => this.handleInputChange(event, formElement.id)}
       />
     ));
-
+    let errorMessage = null;
+    if (this.props.error) {
+      errorMessage = this.props.error.message;
+    }
+    if (this.props.loading) form = <Spinner />;
     return (
       <div className={classes.Auth}>
+        {errorMessage}
         <form onSubmit={this.submitHandler}>
           <h3>{this.state.isSignUp ? "SignUp" : "SignIn"}</h3>
           {form}
@@ -131,7 +137,10 @@ class Auth extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    loading: state.auth.loading,
+    error: state.auth.error,
+  };
 };
 const mapDispatchToProps = (dispatch) => {
   return {

@@ -119,9 +119,11 @@ class Auth extends React.Component {
       errorMessage = this.props.error.message;
     }
     if (this.props.loading) form = <Spinner />;
-    let isAuthenticated = this.props.isAuthenticated ? (
-      <Redirect to="/" />
-    ) : null;
+    let isAuthenticated = null;
+    if (this.props.isAuthenticated) {
+      if (this.props.building) isAuthenticated = <Redirect to="/checkout" />;
+      else isAuthenticated = <Redirect to="/" />;
+    }
     return (
       <div className={classes.Auth}>
         {isAuthenticated}
@@ -146,6 +148,7 @@ const mapStateToProps = (state) => {
     loading: state.auth.loading,
     error: state.auth.error,
     isAuthenticated: state.auth.token !== null,
+    building: state.burger.building,
   };
 };
 const mapDispatchToProps = (dispatch) => {

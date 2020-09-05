@@ -5,6 +5,7 @@ import classes from "./Auth.module.css";
 import * as actions from "../../store/actions";
 import { connect } from "react-redux";
 import Spinner from "../../components/UI/Spinner/Spinner";
+import { Redirect } from "react-router-dom";
 class Auth extends React.Component {
   state = {
     controls: {
@@ -39,7 +40,7 @@ class Auth extends React.Component {
       },
     },
     validForm: false,
-    isSignUp: true,
+    isSignUp: false,
   };
   checkValidity = (value, rules) => {
     let isValid = true;
@@ -118,8 +119,12 @@ class Auth extends React.Component {
       errorMessage = this.props.error.message;
     }
     if (this.props.loading) form = <Spinner />;
+    let isAuthenticated = this.props.isAuthenticated ? (
+      <Redirect to="/" />
+    ) : null;
     return (
       <div className={classes.Auth}>
+        {isAuthenticated}
         {errorMessage}
         <form onSubmit={this.submitHandler}>
           <h3>{this.state.isSignUp ? "SignUp" : "SignIn"}</h3>
@@ -140,6 +145,7 @@ const mapStateToProps = (state) => {
   return {
     loading: state.auth.loading,
     error: state.auth.error,
+    isAuthenticated: state.auth.token !== null,
   };
 };
 const mapDispatchToProps = (dispatch) => {

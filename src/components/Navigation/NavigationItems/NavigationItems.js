@@ -11,7 +11,7 @@ const navigationItems = (props) => (
       {props.isAuth ? (
         <NavLink to="/logout">Logout</NavLink>
       ) : (
-        <NavLink to="/auth">SignUp</NavLink>
+        <NavLink to="/auth">Login</NavLink>
       )}
     </li>
   </ul>

@@ -35,6 +35,7 @@ class BurgerBuilder extends React.Component {
     this.setState({ ordering: !ordering });
   };
   orderContinueHandler = () => {
+    if (!this.props.isAuthenticated) return this.props.history.push("/auth");
     this.props.history.push("/checkout");
   };
   render() {
@@ -80,6 +81,7 @@ const mapStateToProps = (state) => {
   return {
     ings: state.burger.ingredients,
     price: state.burger.totalPrice,
+    isAuthenticated: state.auth.token !== null,
   };
 };
 const mapDispatchToProps = (dispatch) => {

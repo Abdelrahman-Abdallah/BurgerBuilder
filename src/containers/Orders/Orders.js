@@ -5,6 +5,7 @@ import Spinner from "../../components/UI/Spinner/Spinner";
 import WithError from "../../hoc/withErrorHandler/withErrorhandler";
 import * as actions from "../../store/actions/index";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 class Orders extends React.Component {
   state = {
     orders: null,
@@ -27,6 +28,7 @@ class Orders extends React.Component {
 
     return (
       <div>
+        {this.props.isAuthenticated ? null : <Redirect />}
         {this.props.loading ? <Spinner /> : null}
         {orders}
       </div>
@@ -39,6 +41,7 @@ const mapStateToProps = (state) => {
     loading: state.order.loading,
     orders: state.order.orders,
     token: state.auth.token,
+    isAuthenticated: state.auth.token !== null,
   };
 };
 const mapDispatchToProps = (dispatch) => {

@@ -17,7 +17,9 @@ export const authStartFail = (error) => {
     error,
   };
 };
+
 export const auth = (email, password, isSignUp) => {
+  const KEY = process.env.REACT_APP_API_SECRET_KEY;
   return (dispatch) => {
     dispatch(authStart());
     const authData = {
@@ -25,11 +27,9 @@ export const auth = (email, password, isSignUp) => {
       password: password,
       returnSecureToken: true,
     };
-    let url =
-      "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCwXwSFLLscRVuOJdoUMHz1WuFuYlha0C8";
+    let url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${KEY}`;
     if (!isSignUp) {
-      url =
-        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCwXwSFLLscRVuOJdoUMHz1WuFuYlha0C8";
+      url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?${KEY}`;
     }
 
     axios

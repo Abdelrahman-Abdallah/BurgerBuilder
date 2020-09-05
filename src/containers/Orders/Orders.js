@@ -12,7 +12,7 @@ class Orders extends React.Component {
     loading: true,
   };
   componentDidMount() {
-    this.props.fetchOrders(this.props.token);
+    this.props.fetchOrders(this.props.token, this.props.userId);
   }
   render() {
     let orders = null;
@@ -42,11 +42,13 @@ const mapStateToProps = (state) => {
     orders: state.order.orders,
     token: state.auth.token,
     isAuthenticated: state.auth.token !== null,
+    userId: state.auth.userId,
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchOrders: (token) => dispatch(actions.fetchOrders(token)),
+    fetchOrders: (token, userId) =>
+      dispatch(actions.fetchOrders(token, userId)),
   };
 };
 

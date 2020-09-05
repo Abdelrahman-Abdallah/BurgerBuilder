@@ -29,7 +29,7 @@ export const auth = (email, password, isSignUp) => {
     };
     let url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${KEY}`;
     if (!isSignUp) {
-      url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?${KEY}`;
+      url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${KEY}`;
     }
 
     axios

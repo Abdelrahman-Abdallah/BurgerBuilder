@@ -17,7 +17,19 @@ export const authStartFail = (error) => {
     error,
   };
 };
-
+export const authLogout = () => {
+  return {
+    type: actionTypes.AUTH_LOGOUT,
+  };
+};
+export const logoutTimeout = (timeout) => {
+  console.log(`timeout `, timeout);
+  return (dispatch) => {
+    setTimeout(() => {
+      dispatch(authLogout());
+    }, +timeout * 1000);
+  };
+};
 export const auth = (email, password, isSignUp) => {
   const KEY = process.env.REACT_APP_API_SECRET_KEY;
   return (dispatch) => {
@@ -37,6 +49,7 @@ export const auth = (email, password, isSignUp) => {
       .then((res) => {
         console.log(res);
         dispatch(authStartSuccess(res.data));
+        dispatch(logoutTimeout(res.data.expiresIn));
       })
       .catch((err) => {
         console.log(err.response);
